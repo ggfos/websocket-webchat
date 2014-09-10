@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>KeeeWeee Web 1.0.0 Beta版</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../image/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../stylesheets/main.css">
+    <link rel="stylesheet" href="../stylesheets/login.css">
+    <link rel="stylesheet" href="../stylesheets/profile.css">
+
+    <!--bootstarp-->
+    <link rel="stylesheet" href="../plugins/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/doc/css/docs.min.css">
+
+    <!--jquery-->
+    <script src="../plugins/jquery/1.0.2/jquery.js"></script>
+    <script src="../plugins/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!--spin-->
+    <script src="../plugins/spin/2.0.1/spin.js"></script>
+    <script src="../plugins/spin/2.0.1/spin.min.js"></script>
+    <!--service-->
+    <script src="../js/config/initCore.js"></script>
+    <script src="../js/util/util.js"></script>
+    <script src="../js/dao/dao.js"></script>
+    <script src="../js/config/config.js"></script>
+    <script src="../js/service/accountService.js"></script>
+    <script src="../js/service/snsService.js"></script>
+    <script src="../js/service/discoverService.js"></script>
+    <script src="../js/service/relationshipService.js"></script>
+    <script src="../js/service/mobileService.js"></script>
+    <script src="../js/service/infoService.js"></script>
+    <script src="../js/service/systemService.js"></script>
+    <script src="../js/view/viewer.js"></script>
+    <script src="../js/routes.js"></script>
+    <script src="../js/pageInitializator.js"></script>
+    <script src="../js/register.js"></script>
+    <script src="../js/extractor.js"></script>
+
+</head>
+<body onload="init()">
+<!--start account line-->
+<div class="col-sm-6 col-md-1 mag-top"></div>
+<div class="col-sm-6 col-md-1 mag-top" id="head_float_pane"><!--
+    <img src="../image/headref.jpg" class="img-circle img-thumbnail cur userref mag-left">
+    <img src="../image/qq.png" class="img-circle img-thumbnail cur userref mag-left">-->
+    <img src="../image/add.jpg" class="img-circle img-thumbnail cur userref mag-left" data-toggle="modal"
+         data-target=".bs-example-modal-sm">
+</div>
+<!--start login dialog-->
+<!--<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="account-wall">
+            <h1 class="text-center login-title">KeeeWeee Login</h1>
+            <img class="profile-img" src="../image/logo.jpg">
+
+            <form class="form-signin" action="index.html">
+                <input name="login_uid" type="text" class="form-control" placeholder="login_uid" required autofocus>
+                <input name="access_token" type="password" class="form-control" placeholder="access_token" required>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                    Sign in
+                </button>
+                <label class="checkbox pull-left">
+                    <input name="remember" type="checkbox" value="remember-me">
+                    Remember me
+                </label>
+                <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+            </form>
+        </div>
+    </div>
+</div>-->
+<!--stop login dialog-->
+<!--stop account line-->
+<!--start option list-->
+<div class="col-sm-6 col-md-3 mag-top" id="menu_float_pane">
+    <div class="panel panel-info opacity">
+        <!--start title menu-->
+        <div class="panel-heading">
+            <div class="panel-title"><strong>KeeeWeee</strong>
+                <span class="pull-right glyphicon glyphicon-cog cur menu"></span>
+                <span class="pull-right glyphicon glyphicon-edit cur menu" onclick="showChat();">&nbsp;</span>
+                <span class="pull-right glyphicon glyphicon-search cur menu">&nbsp;</span>
+            </div>
+        </div>
+        <!--stop title menu-->
+        <div class="panel-body">
+            <ul class="nav nav-tabs" role="tablist" id="navigator">
+                <li class="dropdown" id="navigator_li">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">更多<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu" id="navigator_li_ul"></ul>
+                </li>
+            </ul>
+            <!--start tab content-->
+            <div class="tab-content" id="show_pane">
+
+                <!--   start profile_details dialog modal
+                  <div class="modal fade" id="profile_details" tabindex="-1" role="dialog"
+                       aria-labelledby="profile_details_label"
+                       aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="col-sm-6 col-md-9">
+                              <div class="thumbnail">
+                                  <div class="bgd">
+                                      <button type="button" class="close" data-dismiss="modal"><span
+                                              aria-hidden="false">&times;</span><span
+                                            class="sr-only">Close</span></button>
+                                    <img src="../image/user2.jpg" class="profileref img-circle"><br>
+                                    <span class="nick"><strong>VivianYoung1988</strong></span><br><br><br>
+                                    <img src="../image/social_icons/f.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <img src="../image/social_icons/t.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <img src="../image/social_icons/k.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <img src="../image/social_icons/s.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <img src="../image/social_icons/v.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <img src="../image/social_icons/i.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <img src="../image/social_icons/g.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <img src="../image/social_icons/q.png"
+                                         class="img-circle snsicon2 cur">&nbsp;
+                                    <br>
+                                    <span class="glyphicon glyphicon-edit pull-right cur"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-qrcode pull-right cur"></span>&nbsp;&nbsp;
+                                    <span class="glyphicon glyphicon-thumbs-up pull-right cur"></span>
+                                </div>
+                                <div class="caption">
+                                    <h3>个人描述</h3>
+
+                                    <p> &nbsp;&nbsp;&nbsp;&nbsp;Cras justo odio, dapibus ac facilisis in, egestas eget
+                                        quam. Donec
+                                        id
+                                        elit non mi
+                                        porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id
+                                        elit.
+                                    </p>
+
+                                    <p>
+                                        <span class="glyphicon glyphicon-map-marker"><strong>位置</strong></span>
+                                        <span class="pull-right"><strong>China,Beijing</strong></span>
+                                    </p>
+
+                                    <p>
+                                        <span class="glyphicon glyphicon-map-marker"><strong>生日</strong></span>
+                                        <span class="pull-right"><strong>2014-7-22</strong></span>
+                                    </p>
+
+                                    <p>
+                                        <span class="glyphicon glyphicon-map-marker"><strong>全名</strong></span>
+                                        <span class="pull-right"><strong>杨韦唯</strong></span>
+                                    </p>
+
+                                    <p>
+                                        <span class="glyphicon glyphicon-map-marker"><strong>标签</strong></span>
+                                        <span class="pull-right"><strong>打乒乓，踢足球</strong></span>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 stop profile_details dialog modal
+                 start moments dialog modal
+                <div class="modal fade" id="moment_details" tabindex="-1" role="dialog"
+                     aria-labelledby="moment_details_label"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="col-sm-6 col-md-10">
+                            <div class="thumbnail">
+                                <button type="button" class="close" data-dismiss="modal"><span
+                                        aria-hidden="false">&times;</span><span
+                                        class="sr-only">Close</span></button>
+
+                                <div class="caption">
+                                    <img class="status_img img-thumbnail" src="../image/status.jpg">
+
+                                    <p></p>
+
+                                    <p><span
+                                            class="glyphicon glyphicon-map-marker"><strong>China,Beijing</strong></span>
+                                        <span class="pull-right"><strong>2014-7-22 23:12:20</strong></span>
+                                    </p>
+
+                                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit
+                                        non mi
+                                        porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut
+                                        id
+                                        elit.</p>
+
+                                    <p>
+                                        <button type="button" class="btn btn-default"><span
+                                                class="glyphicon glyphicon-thumbs-up"></span></button>
+                                        &nbsp;&nbsp;<a href="#"><strong>eq.primos</strong></a> likes this.
+                                    </p>
+                                    <p> Comments: <span class="badge">2</span></p>
+
+                                    <p>
+
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="leave a comment">
+						 <span class="input-group-btn">
+						  <button class="btn btn-default" type="button">Comment</button>
+						 </span>
+                                    </div>
+                                    </p>
+                                    <p><img src="../image/user1.jpg" class="visref img-circle"><a href="#"><strong>
+                                        chrisstyle</strong></a> it's beatiful
+                                        <button type="button" class="close" aria-hidden="true"
+                                                data-dismiss="alert">&times;</button>
+                                    </p>
+                                    <p><img src="../image/user2.jpg" class="visref img-circle"><a href="#"><strong>
+                                        VivianYoung1988</strong></a> wow!
+                                        <button type="button" class="close" aria-hidden="true"
+                                                data-dismiss="alert">&times;</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                 stop moments dialog modal-->
+            </div>
+            <!--stop tab content-->
+        </div>
+    </div>
+    <span class="pull-left glyphicon glyphicon-circle-arrow-left cur menu" onclick="pollingBack();"
+          title="切换到上一张图片">&nbsp;</span>
+    <span class="pull-left glyphicon glyphicon-circle-arrow-right cur menu" onclick="pollingForward();"
+          title="切换到下一张图片"></span>
+    <span class="pull-left glyphicon glyphicon-exclamation-sign cur menu" onclick="alert('谢谢您的反馈');"
+          title="切换到下一张图片"></span>
+
+</div>
+<!--stop option list-->
+
+<!--start chat window-->
+<div class="col-sm-6 col-md-6 mag-top chatopacity" id="chat_float_pane">
+    <div class="panel panel-info opacity" id="chat_container" style="height: 90% ">
+        <!--start chat window title-->
+        <div class="panel-heading txt">
+            与 <span id="chat_with_name"></span> 交谈中
+            <span class="pull-left glyphicon glyphicon-trash cur menu" onclick="clearMsg();">&nbsp;</span>
+            <span class="pull-right glyphicon glyphicon-eye-close cur menu" onclick="closeChat()"></span>
+        </div>
+        <!--stop chat window title-->
+        <!--start chat window panel-->
+        <div class="panel-body chat" id="chat_return_alert">
+            <div class="well scrollspy-chat-pane" data-offset="6" data-spy="scroll" id="return-alert"
+                 data-target="#chat_pane">
+
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <img src="../image/user2.jpg" id="s:23" onmouseover="showSocialIcons(this)"
+                             onmouseout="hiddenSocialIcons(this)" class="img-circle chatref cur" title="Vivi Young">
+                    </div>
+                    <div class="col-md-10 alert alert-success" role="alert">
+                        你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛
+                        ？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-10 alert alert-info" role="alert">
+                        你在干嘛？
+                        ？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？
+                    </div>
+                    <div class="col-md-2">
+                        <img src="../image/headref.jpg" id="i:23:1" onmouseover="showSocialIcons(this)"
+                             onmouseout="hiddenSocialIcons(this)" class="img-circle chatref cur pull-right "
+                             title="Primos">
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <img src="../image/user2.jpg" id="s:23:1" onmouseover="showSocialIcons(this)"
+                             onmouseout="hiddenSocialIcons(this)" class="img-circle chatref cur " title="Vivi Young">
+                    </div>
+                    <div class="col-md-10 alert alert-success" role="alert">
+                        你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛
+                        ？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？ 你在干嘛？
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-10 alert alert-info" role="alert">
+                        你在干嘛？
+                    </div>
+                    <div class="col-md-2">
+                        <img src="../image/headref.jpg" id="i:23" onmouseover="showSocialIcons(this)"
+                             onmouseout="hiddenSocialIcons(this)" class="img-circle chatref cur pull-right"
+                             title="Primos">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-paperclip"></span>
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入要发送的内容" id="sendInput" autofocus
+                           oninput="btnEventFn(this.value);" onpropertychange="btnEventFn(this.value)" onkeypress=" return keyEvent(event);">
+                    <span class="input-group-btn">
+                        <button id="sendMsgBtn" class="btn btn-default" type="button" data-placement="left" title="发送"
+                                disabled="true"
+                                onclick="sendThenClear()" >
+                            <span class="pull-right glyphicon glyphicon-send cur send">&nbsp;</span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            </p>
+
+        </div>
+        <!--stop chat window panel-->
+    </div>
+</div>
+<!--stop chat window-->
+<!--<footer class="mag-left_m">
+    <span class="pull-left glyphicon glyphicon-circle-arrow-left cur menu" onclick="pollingBack();"
+          title="切换到上一张图片">&nbsp;</span>
+    <span class="pull-left glyphicon glyphicon-circle-arrow-right cur menu" onclick="pollingForward();"
+          title="切换到下一张图片"></span>
+</footer>-->
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <title>KeeeWeee Web 1.0.0 Beta版</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../image/assets/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../stylesheets/main.css">
+    <link rel="stylesheet" href="../stylesheets/login.css">
+    <link rel="stylesheet" href="../stylesheets/profile.css">
+
+    <!--jquery-->
+    <script src="../plugins/jquery/1.0.2/jquery.js"></script>
+
+    <!--bootstarp-->
+    <link rel="stylesheet" href="../plugins/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="../plugins/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!--<script src="../plugins/bootstrap/3.2.0/js/bootstrap.js"></script>-->
+    <script src="../plugins/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <!--<script src="../plugins/doc/js/docs.min.js"></script>-->
+
+    <link rel="stylesheet" href="../plugins/doc/css/docs.min.css">
+
+    <!--spin-->
+    <script src="../plugins/spin/2.0.1/spin.js"></script>
+    <script src="../plugins/spin/2.0.1/spin.min.js"></script>
+
+    <!--service-->
+
+    <script src="../js/config/initCore.js"></script>
+    <script src="../js/util/util.js"></script>
+    <script src="../js/dao/dao.js"></script>
+    <script src="../js/config/config.js"></script>
+
+    <script src="../js/service/accountService.js"></script>
+    <script src="../js/service/snsService.js"></script>
+    <script src="../js/service/discoverService.js"></script>
+    <script src="../js/service/relationshipService.js"></script>
+    <script src="../js/service/mobileService.js"></script>
+    <script src="../js/service/infoService.js"></script>
+    <script src="../js/service/systemService.js"></script>
+
+    <script src="../js/view/viewer.js"></script>
+    <script src="../js/routes.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-5 col-md-offset-3">
+            <h1 class="text-center login-title">KeeeWeee Official Customer Service Login</h1>
+
+            <div class="account-wall">
+                <img class="profile-img" src="../image/logo.jpg">
+
+                <form class="form-signin">
+                    <input name="login_uid" type="text" class="form-control" placeholder="login_uid"
+                           value="u" id="customer_login_type" required> <!--autofocus-->
+                    <input name="login_uid" type="text" class="form-control" placeholder="login_uid"
+                           value="1234567890" id="customer_login_id" required> <!--autofocus-->
+                    <input name="access_token" type="password" class="form-control" value="0123456789"
+                           placeholder="access_token" id="customer_login_token" required>
+                    <button class="btn btn-lg btn-primary btn-block" onclick="customerLogin();">
+                        Sign in
+                    </button>
+                    <label class="checkbox pull-left">
+                        <input name="remember" type="checkbox" value="remember-me">
+                        Remember me
+                    </label>
+                    <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                    <hr>
+                    <ul class="nav navbar-nav navbar-right clearfix">
+                        <li><img src="../image/social_icons/f.png"
+                                 class="img-circle snsicon cur">&nbsp;</li>
+                        <li><img src="../image/social_icons/t.png"
+                                 class="img-circle snsicon cur">&nbsp;</li>
+                        <li><img src="../image/social_icons/k.png"
+                                 class="img-circle snsicon cur">&nbsp;</li>
+                        <li><img src="../image/social_icons/s.png" class="img-circle snsicon cur">&nbsp;
+                        </li>
+                        <li><img src="../image/social_icons/v.png" class="img-circle snsicon cur">&nbsp;
+                        </li>
+                        <li><img src="../image/social_icons/i.png" class="img-circle snsicon cur">&nbsp;
+                        </li>
+                        <li><img src="../image/social_icons/g.png"
+                                 class="img-circle snsicon cur">&nbsp;</li>
+                        <li><img src="../image/social_icons/q.png" class="img-circle snsicon cur">&nbsp;
+                        </li>
+                    </ul>
+                    <hr>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
