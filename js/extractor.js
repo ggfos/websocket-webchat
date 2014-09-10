@@ -72,7 +72,7 @@ function contactsHandler(json) {
         for (var index in contacts) {
             contactsListViewer(index, contacts[index].info.n, contacts[index].info.h)
         }
-        wsp.listStatus2("i:1404796754", "trust", "text&image", 20, "初始化朋友圈")
+        wsp.listStatus2("i:1404796754", "trust", "text&image", 10, "初始化朋友圈")
     }
 }
 

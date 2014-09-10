@@ -256,5 +256,5 @@ function keyEvent(e) {
 
 function loadMoments() {
     var momentsTime = $("#moments li.list-group-item:last").data("momentsTime")
-    wsp.listStatus("i:1404796754", "trust", "text&image", 20, momentsTime, "分页获取朋友圈列表")
+    wsp.listStatus("i:1404796754", "trust", "text&image", 10, momentsTime, "分页获取朋友圈列表")
 }
