@@ -10,16 +10,13 @@ function alert_msg(typz, content, msg) {
         "</div>")
 }
 
-function sendMsg(msg) {
+function sendMsg(msg, chatMeHead, chatMeId) {
     var chatPaneId = "#return-alert"
-    var accounttId = $(chatPaneId).attr("accounttId");
-    var accountHead = $(chatPaneId).attr("accountHead");
-    var msg = $("#sendInput").val()
-    $("#return-alert").append(
+    $(chatPaneId).append(
             "<div class='col-md-12'>" +
             "   <div class='col-md-10 alert alert-info' role='alert'>" + msg + "</div>" +
             "   <div class='col-md-2'>" +
-            "       <img src='" + accountHead + "' id='" + accounttId + "' onmouseover='showSocialIcons(this)' " + "onmouseout='hiddenSocialIcons(this)' class='img-circle chatref cur pull-right " + "title='Primos'>" +
+            "       <img src='" + chatMeHead + "' id='" + chatMeId + "' onmouseover='showSocialIcons(this)' " + "onmouseout='hiddenSocialIcons(this)' class='img-circle chatref cur pull-right " + "title='Primos'>" +
             "   </div>" +
             "</div>"
     )
@@ -27,12 +24,13 @@ function sendMsg(msg) {
 
 function replyMsg(contact) {
     var chatPaneId = "#return-alert"
-    var headRef = $(chatPaneId).attr("chat_with_head");
-    var id = $(chatPaneId).attr("chat_with_id");
+    var chatToName = $(chatPaneId).data("chatToName");
+    var chatToId = $(chatPaneId).data("chatToId");
+    var chatToHead = $(chatPaneId).data("chatToHead");
     $(chatPaneId).append(
             "<div class='col-md-12'>" +
             "   <div class='col-md-2'>" +
-            "       <img src='" + headRef + "' id='" + id + "' onmouseover='showSocialIcons(this)' " + "onmouseout='hiddenSocialIcons(this)' class='img-circle chatref cur " + "title='Primos'>" +
+            "       <img src='" + chatToHead + "' id='" + chatToId + "' onmouseover='showSocialIcons(this)' " + "onmouseout='hiddenSocialIcons(this)' class='img-circle chatref cur " + "title='Primos'>" +
             "   </div>" +
             "   <div class='col-md-10 alert alert-success' role='alert'>" + contact + "</div>" +
             "</div>"
@@ -148,7 +146,7 @@ function momentsListViewer(user_id, user_name, user_head, moments_id, moments_ty
         "                    </div>" +
         "                    <div class='media-body pull-right'>" +
         "                           <span class='glyphicon glyphicon-heart cur' style='color:grey;' onclick='like(this)'/>&nbsp;" +
-        "                           <span class='glyphicon glyphicon-heart' style='color:red; '/>&nbsp;"+
+        "                           <span class='glyphicon glyphicon-heart' style='color:red; '/>&nbsp;" +
         "                           <span class='glyphicon glyphicon-comment' style='color:grey;'></span>" +
         "                        <a href='#'><img id='" + moments_id + "-like" + "' status='0' class='liicon' src='../image/assets/hearts/0.png' title='赞' onclick='like(this)'></a>&nbsp;&nbsp;" +
         "                            <a href='#'><img id='" + moments_id + "-comment" + "' class='liicon' src='../image/assets/icon_comment_grey.png' title='评论'></a>" +
@@ -201,21 +199,21 @@ function showChat(e) {
     $("#chat_float_pane").removeClass("chatopacity")
     var chatPaneId = "#return-alert"
     $(chatPaneId).empty();
-    var chatWithName = $(e).attr("chat_with_name");
-    var chatWithId = $(e).attr("chat_with_id");
-    var chatId = $(e).attr("chat_id");
-    var chatWithHead = $(e).attr("chat_with_head");
-    var accounttId = $(e).attr("chat_account");
-    var accountHead = $(e).attr("chat_account_head");
-    $("#chat_with_name").text(chatWithName)
+    var chatToName = $(e).data("chatToName");
+    var chatToId = $(e).data("chatToId");
+    var chatToHead = $(e).data("chatToHead");
+    var chatId = $(e).data("chatId");
+    var chatMeId = $(e).data("chatMeId");
+    var chatMeHead = $(e).data("chatMeHead");
+    $("#chat_with_name").text(chatToName);
     $("#sendInput").focus();
-    $(chatPaneId).attr({
-        chat_with_id: chatWithId,
-        chat_with_name: chatWithName,
-        accounttId: accounttId,
-        accountHead: accountHead,
-        chat_id: chatId,
-        chat_with_head: chatWithHead
+    eachData(chatPaneId, {
+        chatToName: chatToName,
+        chatToId: chatToId,
+        chatId: chatId,
+        chatToHead: chatToHead,
+        chatMeId: chatMeId,
+        chatMeHead: chatMeHead
     });
     localStorage.chatId = chatId
     /*wsp.createChatSession(accounttId, [
@@ -228,13 +226,13 @@ function showChat(e) {
 
 function sendThenClear() {
     var chatPaneId = "#return-alert"
-    var accounttId = $(chatPaneId).attr("accounttId");
-    var accountHead = $(chatPaneId).attr("accountHead");
-    var chatId = $(chatPaneId).attr("chat_id");
+    var chatMeId = $(chatPaneId).data("chatMeId");
+    var chatMeHead = $(chatPaneId).data("chatMeHead");
+    var chatId = $(chatPaneId).data("chatId");
     var content = $("#sendInput").val();
     $("#sendInput").focus();
-    sendMsg(content)
-    wsp.chatSendMessage(accounttId, content, 0, chatId);
+    sendMsg(content, chatMeHead, chatMeId)
+    wsp.chatSendMessage(chatMeId, content, 0, chatId);
     $("#sendMsgBtn").attr("disabled", true);
     $("#sendMsgBtn").attr("class", "btn-default btn");
     $("#sendInput").val("");
