@@ -69,12 +69,10 @@ function momentsHandler(json) {
 function contactsHandler(json) {
     if (json.h["p1"] == "init") {
         var contacts = json.r.info.u
-        var defaultAccount = ""
         for (var index in contacts) {
-            defaultAccount = index
             contactsListViewer(index, contacts[index].info.n, contacts[index].info.h)
         }
-        wsp.listStatus2(defaultAccount, "trust", "text&image", 20, "初始化朋友圈")
+        wsp.listStatus2("i:1404796754", "trust", "text&image", 20, "初始化朋友圈")
     }
 }
 
@@ -127,7 +125,7 @@ function pushHandler(json) {
                 if (messages[index].m.t == 0) {
                     replyMsg(messages[index].m.c)
                 } else {
-                    
+
                 }
 
             } else {

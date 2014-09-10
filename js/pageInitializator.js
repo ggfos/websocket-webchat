@@ -93,3 +93,18 @@ function settingIniter() {
     wsp.settingOption("chatMsgOption", "on", "chatMsgOption")
 }
 
+function scrollIniter(elem, fn) {
+    var nScrollHight = 0; //滚动距离总长(注意不是滚动条的长度)
+    var nScrollTop = 0;   //滚动到的当前位置
+    var nDivHight = $("#" + elem).height();
+    $("#" + elem).scroll(function () {
+        nScrollHight = $(this)[0].scrollHeight;
+        nScrollTop = $(this)[0].scrollTop;
+        if (nScrollTop + nDivHight >= nScrollHight) {
+            log("to be end");
+            fn();
+        }
+    })
+}
+
+

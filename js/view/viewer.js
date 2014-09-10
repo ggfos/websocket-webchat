@@ -122,7 +122,7 @@ function momentsListViewer(user_id, user_name, user_head, moments_id, moments_ty
             "</a>"
     else
         image = ""
-    var html = "<li class='list-group-item'>" +
+    var html = "<li class='list-group-item' id='" + moments_id + "' data-moments-time='" + moments_time + "' >" +
         "  <ul class='media-list'>" +
         "        <li class='media'>" +
         "            <a class='pull-left' href='#' id='" + user_id + "'>" +
@@ -252,4 +252,9 @@ function keyEvent(e) {
     log(key == 13)
     if (key == 13)
         sendThenClear();
+}
+
+function loadMoments() {
+    var momentsTime = $("#moments li.list-group-item:last").data("momentsTime")
+    wsp.listStatus("i:1404796754", "trust", "text&image", 20, momentsTime, "分页获取朋友圈列表")
 }

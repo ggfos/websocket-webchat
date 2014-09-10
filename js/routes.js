@@ -63,4 +63,5 @@ function init() {
     register();
     connect();
     layoutInitializator();
+    scrollIniter("moments", loadMoments);
 }
