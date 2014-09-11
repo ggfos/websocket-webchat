@@ -24,10 +24,24 @@ function customerLogin() {
 }
 
 function beBind() {
-    if (localStorage.login)
-        wsp.bind(localStorage.mobileId, "m", makeToken(strToArr(localStorage.token)), {"auto": true, "m": "mobile login"})
-    else
-        window.location.href = "bind.html";
+    if (sessionStorage.login) {
+        $("#login-nav").css("display", "none");
+        $("#login-form").css("display", "none");
+        $("#pre_head").css("block", "inline");
+        $("#head_float_pane").css("display", "inline");
+        $("#menu_float_pane").css("display", "inline");
+        $("#chat_float_pane").css("display", "inline");
+        sessionStorage.login = true;
+        wsp.bind(sessionStorage.mobileId, "m", makeToken(strToArr(sessionStorage.token)), {"auto": true, "m": "mobile login"})
+    }
+    else {
+        $("#login-nav").css("display", "inline");
+        $("#login-form").css("display", "inline");
+        $("#pre_head").css("block", "none");
+        $("#head_float_pane").css("display", "none");
+        $("#menu_float_pane").css("display", "none");
+        $("#chat_float_pane").css("display", "none");
+    }
 }
 /**
  * 加载网页的时候连接socket,做相关初始化
@@ -68,17 +82,31 @@ function init() {
  绑定初始化
  */
 function bindinit() {
+
+    register();
+    if (sessionStorage.login) {
+        wsp = makeWSProxy(wsUrl2, function (evt) {
+                extractor(evt);
+            },
+            function () {
+                wsp.initSocket("ios", "en_US", "1.0.0", "primos-pc", {
+                    auto: true,
+                    m: "版本初始化"
+                });
+            }
+        );
+    } else {
+        wsp = makeWSProxy(wsUrl2, function (evt) {
+                extractor(evt);
+            },
+            function () {
+                wsp.initSocket("ios", "en_US", "1.0.0", "primos-pc", {
+                    auto: false,
+                    m: "版本初始化"
+                });
+            }
+        );
+    }
     layoutInitializator();
     scrollIniter("moments", loadMoments);
-    register();
-    wsp = makeWSProxy(wsUrl2, function (evt) {
-            extractor(evt);
-        },
-        function () {
-            wsp.initSocket("ios", "en_US", "1.0.0", "primos-pc", {
-                auto: false,
-                m: "版本初始化"
-            });
-        }
-    );
 }

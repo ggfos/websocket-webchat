@@ -268,7 +268,7 @@ function getcode(e) {
     var code = $("#select_country").data("code")
     var mobileNumber = $("#mobile_phone").val()
     if (code && mobileNumber) {
-        localStorage.code = code
+        sessionStorage.code = code
         $(e).text("Resend")
         log(code + "：" + mobileNumber)
         wsp.mobileObtainCode("en_US", mobileNumber, "" + code, "m", "发送手机验证码")

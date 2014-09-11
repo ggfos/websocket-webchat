@@ -48,8 +48,8 @@ function mobileHandler(json) {
     if (json.h["p1"] == "verifiyCode") {
         var id = json.r["id"]
         var token = json.r["a"].t
-        localStorage.mobileId = id;
-        localStorage.token = token;
+        sessionStorage.mobileId = id;
+        sessionStorage.token = token;
         wsp.bind(id, "m", makeToken(strToArr(token)), {"auto": false, "m": "mobile login"})
     } else {
     }
@@ -86,7 +86,7 @@ function contactsHandler(json) {
         for (var index in contacts) {
             contactsListViewer(index, contacts[index].info.n, contacts[index].info.h)
         }
-        wsp.listStatus2("i:1404796754", "trust", "text&image", 10, "初始化朋友圈")
+        wsp.listStatus2("m:" + sessionStorage.mobileId, "trust", "text&image", 10, "初始化朋友圈")
     }
 }
 
@@ -98,15 +98,18 @@ function accountsHandler(json) {
                 floatAccountViewer(accounts[index].id, accounts[index].n, accounts[index].h)
             }
             wsp.initTrustContact("list");
-            settingIniter();
+            wsp.settingOption("chatMsgOption", "on", "chatMsgOption")
         } else {
             $("#login-nav").css("display", "none");
             $("#login-form").css("display", "none");
-            $("#pre_head").css("display", "inline");
-            $("#head_float_pane").css("display", "inline");
-            $("#menu_float_pane").css("display", "inline");
-            $("#chat_float_pane").css("display", "inline");
-            localStorage.login = true;
+//            $("#pre_head").css("block", "inline");
+//            $("#head_float_pane").css("display", "block");
+//            $("#menu_float_pane").css("display", "block");
+//            $("#chat_float_pane").css("display", "block");
+            $("#pre_head").removeClass("chatopacity")
+            $("#head_float_pane").removeClass("chatopacity")
+            $("#menu_float_pane").removeClass("chatopacity")
+            sessionStorage.login = true;
             var accounts = json.r.pop
             for (var index in accounts) {
                 floatAccountViewer(accounts[index].id, accounts[index].n, accounts[index].h)
