@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
-    <title>KeeeWeee Web 1.0.0 Beta版</title>
+    <title>KeeeWeee Web 1.0.0 Beta</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -41,10 +41,138 @@
     <script src="../js/extractor.js"></script>
 
 </head>
-<body onload="init()">
+<body onload="bindinit()">
 <!--start account line-->
-<div class="col-sm-6 col-md-1 mag-top"></div>
-<div class="col-sm-6 col-md-1 mag-top" id="head_float_pane"><!--
+
+<nav class="navbar navbar-default navbar-static-top" role="navigation" id="login-nav">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">KeeeWeee</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <small>Language:</small>
+                        Chinese CN <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">English UK</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" id="login-form">
+    <div class="col-sm-6 col-md-1 login-mag-top">
+    </div>
+    <div class="col-sm-6 col-md-6 login-mag-top">
+        <div id="left-intro">
+            <h1>KeeeWeee</h1>
+
+            <p>KeeeWeee is a free social & IM App that allows users to find, learn & chat with people with common
+                interests. It integrates various social network users together. Users can chat with each other
+                regardless of the social networks they are from. For example, a Facebook user can talk to a Twitter
+                user. A Twitter user can talk to a LinkedIn user. Or the three of them can talk in a group or
+                circle.</p>
+
+        </div>
+    </div>
+
+    <div class="col-sm-6 col-md-1 login-mag-top">
+    </div>
+    <div class="col-sm-6 col-md-4 login-mag-top">
+
+        <div class="panel panel-default loginopacity">
+            <!-- Default panel contents -->
+            <div class="panel-body">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="active"><a href="#home" role="tab" data-toggle="tab">Mobile</a></li>
+                    <li><a href="#profile" role="tab" data-toggle="tab">Customer</a></li>
+                    <li><a href="#messages" role="tab" data-toggle="tab">Social Network</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home"><br>
+
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle"
+                                        data-toggle="dropdown"><span id="select_country">Country</span><span
+                                        class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#" onclick="selectCountry(this)" data-code="86">China(+86)</a></li>
+                                    <li><a href="#" onclick="selectCountry(this)" data-code="1">USA(+1)</a></li>
+                                </ul>
+                            </div>
+                            <!-- /btn-group -->
+                            <input type="text" id="mobile_phone" class="form-control" placeholder="mobile number"
+                                   required>
+                        </div>
+                        <br>
+                        <input name="login_uid" type="text" class="form-control" placeholder="captcha"
+                               id="captcha"><br> <!--autofocus-->
+
+                        <button class="btn btn-primary" onclick="getcode(this);">
+                            Get code
+                        </button>
+                        <button class="btn btn-primary pull-right" onclick="mobileBind();">
+                            Sign in
+                        </button>
+                        <br>
+                        <br>
+                        <input name="remember" type="checkbox" value="remember-me">
+                        Remember me
+                        <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+
+                    </div>
+                    <div class="tab-pane" id="profile">
+                        <form>
+                            <br>
+                            <input name="login_uid" type="text" class="form-control" placeholder="mobile number"
+                                   id="sdfasdfsf" required autofocus><br> <!--autofocus-->
+                            <input name="access_token" type="password" class="form-control"
+                                   placeholder="access_token" id="sdfdfsdf" required><br>
+                            <button class="btn btn-primary pull-right" onclick="customerLogin();">
+                                Sign in
+                            </button>
+                            <br>
+                            <br>
+                            <input name="remember" type="checkbox" value="remember-me">
+                            Remember me
+                            <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                        </form>
+                    </div>
+                    <div class="tab-pane" id="messages">
+                        <form>
+                            <br>
+                            <input name="login_uid" type="text" class="form-control" placeholder="mobile number"
+                                   id="sdf" required autofocus><br> <!--autofocus-->
+                            <input name="access_token" type="password" class="form-control"
+                                   placeholder="access_token" id="sdfsdf" required><br>
+                            <button class="btn btn-primary pull-right" onclick="customerLogin();">
+                                Sign in
+                            </button>
+                            <br>
+                            <br>
+                            <input name="remember" type="checkbox" value="remember-me">
+                            Remember me
+                            <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="col-sm-6 col-md-1 mag-top login-display" id="pre_head"></div>
+<div class="col-sm-6 col-md-1 mag-top login-display" id="head_float_pane"><!--
     <img src="../image/headref.jpg" class="img-circle img-thumbnail cur userref mag-left">
     <img src="../image/qq.png" class="img-circle img-thumbnail cur userref mag-left">-->
     <img src="../image/add.jpg" class="img-circle img-thumbnail cur userref mag-left" data-toggle="modal"
@@ -76,7 +204,7 @@
 <!--stop login dialog-->
 <!--stop account line-->
 <!--start option list-->
-<div class="col-sm-6 col-md-3 mag-top" id="menu_float_pane">
+<div class="col-sm-6 col-md-3 mag-top login-display" id="menu_float_pane">
     <div class="panel panel-info opacity">
         <!--start title menu-->
         <div class="panel-heading">
@@ -245,7 +373,7 @@
 <!--stop option list-->
 
 <!--start chat window-->
-<div class="col-sm-6 col-md-6 mag-top chatopacity" id="chat_float_pane">
+<div class="col-sm-6 col-md-6 mag-top chatopacity login-display" id="chat_float_pane">
     <div class="panel panel-info opacity" id="chat_container" style="height: 90% ">
         <!--start chat window title-->
         <div class="panel-heading txt">
@@ -320,11 +448,12 @@
             <div class="col-md-9">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="输入要发送的内容" id="sendInput" autofocus
-                           oninput="btnEventFn(this.value);" onpropertychange="btnEventFn(this.value)" onkeypress=" return keyEvent(event);">
+                           oninput="btnEventFn(this.value);" onpropertychange="btnEventFn(this.value)"
+                           onkeypress=" return keyEvent(event);">
                     <span class="input-group-btn">
                         <button id="sendMsgBtn" class="btn btn-default" type="button" data-placement="left" title="发送"
                                 disabled="true"
-                                onclick="sendThenClear()" >
+                                onclick="sendThenClear()">
                             <span class="pull-right glyphicon glyphicon-send cur send">&nbsp;</span>
                         </button>
                     </span>

@@ -82,3 +82,29 @@
     display: block;
     margin-top: 10px;
 }
+
+#left-intro {
+}
+
+#left-intro h1 {
+    color: #fff;
+    font-size: 38px;
+    line-height: 44px;
+    margin-bottom: 30px;
+    text-shadow: none;
+}
+
+#left-intro p {
+    color: #fff;
+    font-size: 18px;
+    line-height: 31px;
+    text-shadow: none;
+}
+
+.login-mag-top {
+    margin-top: 100px;
+}
+
+.login-display {
+    display: none;
+}

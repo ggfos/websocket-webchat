@@ -24,29 +24,27 @@ function customerLogin() {
 }
 
 function beBind() {
-    bindFn("1404796754", "i", strToArr("1404796754.7e10326.094011dc2e964942a98461bbb334b36c"));
+    if (localStorage.login)
+        wsp.bind(localStorage.mobileId, "m", makeToken(strToArr(localStorage.token)), {"auto": true, "m": "mobile login"})
+    else
+        window.location.href = "bind.html";
 }
 /**
  * 加载网页的时候连接socket,做相关初始化
  */
 function connect() {
-    if (autoBind)
-        wsp = makeWSProxy(wsUrl2, function (evt) {
-//                extractor(evt);
-            },
-            function () {
-                wsp.initSocket("ios", "zh_CN", "1.0.0", "primos-pc", {
-                    auto: true,
-                    m: "版本初始化"
-                });
-            }
-        )
-        ;
-    else
-        wsp = makeWSProxy(wsUrl2, function (evt) {
+    wsp = makeWSProxy(wsUrl2, function (evt) {
             extractor(evt);
-        })
+        },
+        function () {
+            wsp.initSocket("ios", "en_US", "1.0.0", "primos-pc", {
+                auto: true,
+                m: "版本初始化"
+            });
+        }
+    );
 }
+
 /**
  * 获得url重连socket
  * @param wsUrl
@@ -64,4 +62,23 @@ function init() {
     connect();
     layoutInitializator();
     scrollIniter("moments", loadMoments);
+}
+
+/**
+ 绑定初始化
+ */
+function bindinit() {
+    layoutInitializator();
+    scrollIniter("moments", loadMoments);
+    register();
+    wsp = makeWSProxy(wsUrl2, function (evt) {
+            extractor(evt);
+        },
+        function () {
+            wsp.initSocket("ios", "en_US", "1.0.0", "primos-pc", {
+                auto: false,
+                m: "版本初始化"
+            });
+        }
+    );
 }

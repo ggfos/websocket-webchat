@@ -258,3 +258,31 @@ function loadMoments() {
     var momentsTime = $("#moments li.list-group-item:last").data("momentsTime")
     wsp.listStatus("i:1404796754", "trust", "text&image", 10, momentsTime, "分页获取朋友圈列表")
 }
+function selectCountry(e) {
+    var sec = $(e).text()
+    $("#select_country").data("code", $(e).data("code"))
+    $("#select_country").text(sec)
+}
+
+function getcode(e) {
+    var code = $("#select_country").data("code")
+    var mobileNumber = $("#mobile_phone").val()
+    if (code && mobileNumber) {
+        localStorage.code = code
+        $(e).text("Resend")
+        log(code + "：" + mobileNumber)
+        wsp.mobileObtainCode("en_US", mobileNumber, "" + code, "m", "发送手机验证码")
+    }
+    else
+        return
+}
+
+function mobileBind() {
+    var captcha = $("#captcha").val()
+    if (captcha) {
+        log(captcha)
+        wsp.mobileObtainCodeVerify("" + captcha, "m", "验证验证码")
+    }
+    else
+        return
+}

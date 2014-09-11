@@ -12,6 +12,8 @@ function extractor(evt) {
         else {
             if (json.h["p0"] == "setting")
                 settingHandler(json);
+            else if (json.h["p0"] == "mobileUser")
+                mobileHandler(json)
             else if (json.h["p0"] == "accounts")
                 accountsHandler(json);
             else if (json.h["p0"] == "trustContact")
@@ -35,9 +37,21 @@ function errorHander(json) {
             if (window.confirm('您的账号已经再其他地方登陆,重新登陆?')) {
                 window.location.href = "index.html";
             }
+        } else if (err == "208002") {
+            log("invalid captcha")
         } else {
 
         }
+    }
+}
+function mobileHandler(json) {
+    if (json.h["p1"] == "verifiyCode") {
+        var id = json.r["id"]
+        var token = json.r["a"].t
+        localStorage.mobileId = id;
+        localStorage.token = token;
+        wsp.bind(id, "m", makeToken(strToArr(token)), {"auto": false, "m": "mobile login"})
+    } else {
     }
 }
 function chatHandler(json) {
@@ -78,19 +92,38 @@ function contactsHandler(json) {
 
 function accountsHandler(json) {
     if (json.h["p1"] == "bind") {
-        var accounts = json.r.pop
-        for (var index in accounts) {
-            floatAccountViewer(accounts[index].id, accounts[index].n, accounts[index].h)
+        if (json.h["m"].auto == true) {
+            var accounts = json.r.pop
+            for (var index in accounts) {
+                floatAccountViewer(accounts[index].id, accounts[index].n, accounts[index].h)
+            }
+            wsp.initTrustContact("list");
+            settingIniter();
+        } else {
+            $("#login-nav").css("display", "none");
+            $("#login-form").css("display", "none");
+            $("#pre_head").css("display", "inline");
+            $("#head_float_pane").css("display", "inline");
+            $("#menu_float_pane").css("display", "inline");
+            $("#chat_float_pane").css("display", "inline");
+            localStorage.login = true;
+            var accounts = json.r.pop
+            for (var index in accounts) {
+                floatAccountViewer(accounts[index].id, accounts[index].n, accounts[index].h)
+            }
+            wsp.initTrustContact("list");
+            settingIniter();
         }
-        wsp.initTrustContact("list");
-        settingIniter();
     }
 }
 
 function settingHandler(json) {
     if (json.h["p1"] == "socketInit") {
-        if (json.h["m"].auto = true)
+        if (json.h["m"].auto == true)
             beBind();
+    }
+    else {
+        log("socketInit")
     }
 }
 
