@@ -102,13 +102,10 @@ function accountsHandler(json) {
         } else {
             $("#login-nav").css("display", "none");
             $("#login-form").css("display", "none");
-//            $("#pre_head").css("block", "inline");
-//            $("#head_float_pane").css("display", "block");
-//            $("#menu_float_pane").css("display", "block");
-//            $("#chat_float_pane").css("display", "block");
-            $("#pre_head").removeClass("chatopacity")
-            $("#head_float_pane").removeClass("chatopacity")
-            $("#menu_float_pane").removeClass("chatopacity")
+            $("#pre_head").css("block", "inline");
+            $("#head_float_pane").css("display", "inline");
+            $("#menu_float_pane").css("display", "inline");
+            $("#chat_float_pane").css("display", "inline");
             sessionStorage.login = true;
             var accounts = json.r.pop
             for (var index in accounts) {
@@ -122,8 +119,25 @@ function accountsHandler(json) {
 
 function settingHandler(json) {
     if (json.h["p1"] == "socketInit") {
-        if (json.h["m"].auto == true)
-            beBind();
+        if (json.h["m"].auto == true) {
+            if (sessionStorage.login) {
+                $("#login-nav").css("display", "none");
+                $("#login-form").css("display", "none");
+                $("#pre_head").css("block", "inline");
+                $("#head_float_pane").css("display", "inline");
+                $("#menu_float_pane").css("display", "inline");
+                $("#chat_float_pane").css("display", "inline");
+                wsp.bind(sessionStorage.mobileId, "m", makeToken(strToArr(sessionStorage.token)), {"auto": true, "m": "mobile login"})
+            }
+            else {
+                $("#login-nav").css("display", "inline");
+                $("#login-form").css("display", "inline");
+                $("#pre_head").css("block", "none");
+                $("#head_float_pane").css("display", "none");
+                $("#menu_float_pane").css("display", "none");
+                $("#chat_float_pane").css("display", "none");
+            }
+        }
     }
     else {
         log("socketInit")
