@@ -117,8 +117,8 @@ function contactsListViewer(id, name, head) {
 function momentsListViewer(user_id, user_name, user_head, moments_id, moments_type, moments_content, moments_time, moments_count, moments_likes, moments_pic) {
     if (moments_type == 1)
         var image = "<a class='pull-left' href='#' id='" + moments_id + "'>" +
-            "<img class='media-object img-thumbnail' data-src='holder.js/128x64' alt='128x64'" +
-            "src='" + moments_pic + "' style='width: 128px; height: 64px;'>" +
+            "<img class='media-object img-thumbnail' alt='128x64'" +
+            "src='" + moments_pic + "' style='width: 128px; height: 64px;' onerror='nomomentspic(this)'>" +
             "</a>"
     else
         image = ""
@@ -294,4 +294,8 @@ function mobileBind() {
     }
     else
         return
+}
+
+function nomomentspic(e) {
+    $(e).attr("src", "../image/assets/nopic.jpg")
 }
