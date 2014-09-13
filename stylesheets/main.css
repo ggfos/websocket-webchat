@@ -59,9 +59,9 @@ body {
 }
 
 .loginopacity {
-    -moz-opacity: 0.65; /* FF 3.5以下 */
-    opacity: 0.65; /* FF 3.5及以上 */
-    filter: alpha(opacity=65); /* IE6及以上 */
+    -moz-opacity: 0.75; /* FF 3.5以下 */
+    opacity: 0.75; /* FF 3.5及以上 */
+    filter: alpha(opacity=75); /* IE6及以上 */
     background: #fff;
 }
 
@@ -105,4 +105,14 @@ body {
 
 .iconContainer {
     position: relative;
+}
+
+.comment_icon_grey {
+    color: grey;
+    font-size: 16pt;
+}
+
+.comment_icon_red {
+    color: red;
+    font-size: 16pt;
 }

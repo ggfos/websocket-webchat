@@ -48,9 +48,10 @@ function mobileHandler(json) {
     if (json.h["p1"] == "verifiyCode") {
         var id = json.r["id"]
         var token = json.r["a"].t
-        sessionStorage.mobileId = id;
+        sessionStorage.otherUid = id;
         sessionStorage.token = token;
-        wsp.bind(id, "m", makeToken(strToArr(token)), {"auto": false, "m": "mobile login"})
+        sessionStorage.snsType = "m"
+        wsp.bind(id, sessionStorage.snsType, makeToken(strToArr(token)), {"auto": false, "m": "mobile login"})
     } else {
     }
 }
@@ -86,7 +87,7 @@ function contactsHandler(json) {
         for (var index in contacts) {
             contactsListViewer(index, contacts[index].info.n, contacts[index].info.h)
         }
-        wsp.listStatus2("m:" + sessionStorage.mobileId, "trust", "text&image", 10, "初始化朋友圈")
+        wsp.listStatus2(sessionStorage.snsType + sessionStorage.otherUid, "trust", "text&image", 10, "初始化朋友圈")
     }
 }
 
@@ -127,7 +128,7 @@ function settingHandler(json) {
                 $("#head_float_pane").css("display", "inline");
                 $("#menu_float_pane").css("display", "inline");
                 $("#chat_float_pane").css("display", "inline");
-                wsp.bind(sessionStorage.mobileId, "m", makeToken(strToArr(sessionStorage.token)), {"auto": true, "m": "mobile login"})
+                wsp.bind(sessionStorage.otherUid, sessionStorage.snsType, makeToken(strToArr(sessionStorage.token)), {"auto": true, "m": "mobile login"})
             }
             else {
                 $("#login-nav").css("display", "inline");

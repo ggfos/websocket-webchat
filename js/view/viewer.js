@@ -145,12 +145,9 @@ function momentsListViewer(user_id, user_name, user_head, moments_id, moments_ty
         "                    " + moments_likes + " <strong>likes</strong> ," + moments_count + " <strong>comments</strong>" +
         "                    </div>" +
         "                    <div class='media-body pull-right'>" +
-        "                           <span class='glyphicon glyphicon-heart cur' style='color:grey;' onclick='like(this)'/>&nbsp;" +
-        "                           <span class='glyphicon glyphicon-heart' style='color:red; '/>&nbsp;" +
-        "                           <span class='glyphicon glyphicon-comment' style='color:grey;'></span>" +
-        "                        <a href='#'><img id='" + moments_id + "-like" + "' status='0' class='liicon' src='../image/assets/hearts/0.png' title='赞' onclick='like(this)'></a>&nbsp;&nbsp;" +
-        "                            <a href='#'><img id='" + moments_id + "-comment" + "' class='liicon' src='../image/assets/icon_comment_grey.png' title='评论'></a>" +
-        "                            </div>" +
+        "                           <span class='glyphicon glyphicon-heart cur comment_icon_grey' onclick='like(this)' data-like='0' title='赞' />&nbsp;" +
+        "                           <span class='glyphicon glyphicon-comment cur comment_icon_grey'  title='评论'/>" +
+        "                   </div>" +
         "                        </li>" +
         "                    </ul>" +
         "                </li>"
@@ -175,11 +172,22 @@ function hiddenSocialIcons(e) {
     var src1 = $(e).attr("src1");
     $(e).attr("src", src1)
 }
+
 function like(e) {
-    var status = parseInt($(e).attr("status"));
+    var status = parseInt($(e).data("like"));
+    log(status)
     var ns = status ^ 1
-    $(e).attr("status", ns);
-    $(e).attr("src", "../image/assets/hearts/" + ns + ".png");
+    $(e).data("like", ns)
+    if (ns == 1) {
+        $(e).removeClass("comment_icon_grey")
+        $(e).addClass("comment_icon_red")
+    }
+    else {
+        $(e).removeClass("comment_icon_red")
+        $(e).addClass("comment_icon_grey")
+    }
+
+
 }
 
 /**
@@ -256,8 +264,9 @@ function keyEvent(e) {
 
 function loadMoments() {
     var momentsTime = $("#moments li.list-group-item:last").data("momentsTime")
-    wsp.listStatus("i:1404796754", "trust", "text&image", 10, momentsTime, "分页获取朋友圈列表")
+    wsp.listStatus(sessionStorage.otherUid, "trust", "text&image", 10, momentsTime, "分页获取朋友圈列表")
 }
+
 function selectCountry(e) {
     var sec = $(e).text()
     $("#select_country").data("code", $(e).data("code"))
